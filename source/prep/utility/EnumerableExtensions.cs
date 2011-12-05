@@ -10,7 +10,11 @@ namespace prep.utility
         yield return item;
     }
 
-    public static IEnumerable<ItemToMatch> all_items_matching<ItemToMatch>(this IEnumerable<ItemToMatch> items,Condition<ItemToMatch> condition)
+    public static IEnumerable<ItemToMatch> all_items_matching<ItemToMatch>(this IEnumerable<ItemToMatch> items,IMatchAn<ItemToMatch> specification)
+    {
+      return items.all_items_matching(specification.matches);
+    }
+    static IEnumerable<ItemToMatch> all_items_matching<ItemToMatch>(this IEnumerable<ItemToMatch> items,Condition<ItemToMatch> condition)
     {
       foreach (var item in items)
         if (condition(item)) yield return item;
