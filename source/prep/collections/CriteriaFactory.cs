@@ -19,7 +19,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-      throw new NotImplementedException();
+        IMatchAn<ItemToMatch> match = new AnonymousMatch<ItemToMatch>(x => false);
+
+        foreach(var value in values)
+            match = new OrMatch<ItemToMatch>(match, equal_to(value));
+
+        return match;
     }
   }
 }
