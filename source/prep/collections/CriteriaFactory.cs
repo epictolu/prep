@@ -25,7 +25,7 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
     {
-      throw new NotImplementedException();
+        return new AnonymousMatch<ItemToMatch>(x => !Equals(accessor(x), value));
     }
   }
 }
