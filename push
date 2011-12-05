@@ -1,3 +1,14 @@
-git add -A
-git commit -m "Updated"
-gitrb push origin master
+#!/usr/bin/env ruby
+
+require_relative 'git_utils.rb'
+
+`git add -A`
+`git commit -m "Committing"`
+
+puts "Enter a meaningful branch name (leave empty if you don't need one)"
+branch_name = readline.chomp.strip.gsub(" ","_").downcase
+
+if (branch_name != "")
+  checkout(branch_name)
+end
+`./_push`
