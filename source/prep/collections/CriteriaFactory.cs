@@ -4,7 +4,7 @@ using prep.utility;
 
 namespace prep.collections
 {
-  public class CriteriaFactory<ItemToMatch, PropertyType>
+  public class CriteriaFactory<ItemToMatch, PropertyType> where PropertyType : IComparable<PropertyType>
   {
     Func<ItemToMatch, PropertyType> accessor;
 
@@ -13,9 +13,9 @@ namespace prep.collections
       this.accessor = accessor;
     }
 
-    public IMatchAn<ItemToMatch> equal_to(PropertyType type)
+    public IMatchAn<ItemToMatch> equal_to(PropertyType value)
     {
-      return new AnonymousMatch<ItemToMatch>(x => Equals(accessor(x), type));
+      return equal_to_any(value);
     }
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
@@ -25,7 +25,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
     {
-        return new AnonymousMatch<ItemToMatch>(x => !Equals(accessor(x), value));
+      return new NegatingMatch<ItemToMatch>(equal_to(value));
+    }
+
+    public IMatchAn<ItemToMatch> greater_than(PropertyType value)
+    {
+      return new AnonymousMatch<ItemToMatch>(x => accessor(x).CompareTo(value) > 0);
     }
   }
 }
