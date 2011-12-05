@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using prep.utility;
 
 namespace prep.collections
@@ -19,12 +20,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-        IMatchAn<ItemToMatch> match = new AnonymousMatch<ItemToMatch>(x => false);
+      return new AnonymousMatch<ItemToMatch>(x => new List<PropertyType>(values).Contains(accessor(x)));
+    }
 
-        foreach(var value in values)
-            match = new OrMatch<ItemToMatch>(match, equal_to(value));
-
-        return match;
+    public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
+    {
+      throw new NotImplementedException();
     }
   }
 }
