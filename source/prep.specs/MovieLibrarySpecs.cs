@@ -190,8 +190,8 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar = () =>
       {
-        IMatchAn<Movie> criteria = Where<Movie>.has_a(x => x.rating)
-          .equal_to(123);
+        IMatchAn<Movie> criteria = Where<Movie>.has_a(x => x.production_studio)
+          .equal_to(ProductionStudio.Pixar);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
