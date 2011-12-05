@@ -1,12 +1,14 @@
 ﻿using System;
+using prep.utility;
 
 namespace prep.collections
 {
   public class Where<ItemToMatch>
   {
-      public static Func<Movie, ProductionStudio> has_a(Func<Movie, ProductionStudio> func)
-      {
-          return func;
-      }
+    public static sfsdf has_a<PropertyType>(Func<ItemToMatch, PropertyType> accessor)
+    {
+      throw new NotImplementedException();
+    }
   }
+
 }
