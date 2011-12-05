@@ -40,7 +40,6 @@ namespace prep.collections
       return all_movies_matching(movie => movie.production_studio == ProductionStudio.Pixar);
     }
 
-
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
       return
@@ -60,7 +59,7 @@ namespace prep.collections
 
     IEnumerable<Movie> all_movies_matching(MovieCondition condition)
     {
-      return movies.all_items_matching(condition);
+        return movies.all_items_matching(movie => condition(movie));
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
