@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Machine.Specifications;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
+using Machine.Specifications;
 using prep.collections;
 using prep.specs.utility;
 using prep.utility;
@@ -193,7 +193,6 @@ namespace prep.specs
         IMatchAn<Movie> criteria = Where<Movie>.has_a(x => x.production_studio).equal_to(ProductionStudio.Pixar);
 
         var results = sut.all_movies().all_items_matching(criteria);
-
 
         results.ShouldContainOnly(cars, a_bugs_life);
       };

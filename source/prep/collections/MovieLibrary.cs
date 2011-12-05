@@ -15,7 +15,7 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies()
     {
-      return movies.one_a_a_time();
+      return movies.one_at_a_time();
     }
 
     public void add(Movie movie)
@@ -59,7 +59,7 @@ namespace prep.collections
 
     IEnumerable<Movie> all_movies_matching(MovieCondition condition)
     {
-      return movies.all_items_matching(new AnonymousMatch<Movie>(x => x.title.StartsWith("A"));
+      return movies.all_items_matching(new AnonymousMatch<Movie>(x => x.title.StartsWith("A")));
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
