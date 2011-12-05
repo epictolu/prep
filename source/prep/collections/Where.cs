@@ -4,9 +4,9 @@ namespace prep.collections
 {
   public class Where<ItemToMatch>
   {
-    public static void has_a(Func<object, object> func)
-    {
-      throw new NotImplementedException();
-    }
+      public static Func<Movie, ProductionStudio> has_a(Func<Movie, ProductionStudio> func)
+      {
+          return func;
+      }
   }
 }
