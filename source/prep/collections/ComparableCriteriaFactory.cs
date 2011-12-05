@@ -14,7 +14,7 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-      throw new NotImplementedException();
+        return new GreaterThanMatch<ItemToMatch, PropertyType>(accessor, value);
     }
   }
 }
