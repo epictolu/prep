@@ -11,4 +11,4 @@ branch_name = readline.chomp.strip.gsub(" ","_").downcase
 if (branch_name != "")
   checkout(branch_name)
 end
-`./_push`
+system("./push_for_students")
