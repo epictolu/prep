@@ -1,4 +1,4 @@
-﻿namespace prep.utility
+﻿namespace prep.utility.filtering
 {
   public class NeverMatches<ItemToMatch> : IMatchAn<ItemToMatch>
   {

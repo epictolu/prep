@@ -1,6 +1,6 @@
 using System;
 
-namespace prep.utility
+namespace prep.utility.filtering
 {
   public class IsGreaterThan<T> : IMatchAn<T> where T : IComparable<T>
   {

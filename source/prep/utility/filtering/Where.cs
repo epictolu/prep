@@ -1,6 +1,7 @@
-﻿using System;
+using System;
+using prep.collections;
 
-namespace prep.collections
+namespace prep.utility.filtering
 {
   public class Where<ItemToMatch>
   {
@@ -13,7 +14,7 @@ namespace prep.collections
     public static ComparableCriteriaFactory<ItemToMatch, PropertyType> has_an<PropertyType>(
       Func<ItemToMatch, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
     {
-      return new ComparableCriteriaFactory<ItemToMatch, PropertyType>(accessor, has_a(accessor));
+      return new ComparableCriteriaFactory<ItemToMatch, PropertyType>(has_a(accessor));
     }
   }
 }

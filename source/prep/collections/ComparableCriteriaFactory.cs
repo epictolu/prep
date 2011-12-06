@@ -1,17 +1,15 @@
 ﻿using System;
 using prep.utility;
+using prep.utility.filtering;
 
 namespace prep.collections
 {
-  public class ComparableCriteriaFactory<ItemToMatch, PropertyType>
-    where PropertyType : IComparable<PropertyType>
+  public class ComparableCriteriaFactory<ItemToMatch, PropertyType> : ICreateMatchers<ItemToMatch,PropertyType> where PropertyType : IComparable<PropertyType>
   {
-    Func<ItemToMatch, PropertyType> accessor;
     ICreateMatchers<ItemToMatch, PropertyType> original;
 
     public ComparableCriteriaFactory(Func<ItemToMatch, PropertyType> accessor, ICreateMatchers<ItemToMatch, PropertyType> original)
     {
-      this.accessor = accessor;
       this.original = original;
     }
 
@@ -30,16 +28,19 @@ namespace prep.collections
       return original.not_equal_to(value);
     }
 
+    public IMatchAn<ItemToMatch> create_using(IMatchAn<PropertyType> criteria)
+    {
+      return original.create_using(criteria);
+    }
+
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-      return original.create_using(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
+      return original.create_using(new FallsInRange<PropertyType>());
     }
 
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
-      return original.create_using(x =>
-                                     accessor(x).CompareTo(start) >= 0 &&
-                                       accessor(x).CompareTo(end) <= 0);
+      return original.create_using(new FallsInRange<PropertyType>());
     }
   }
 }

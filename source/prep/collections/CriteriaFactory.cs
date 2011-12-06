@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using prep.utility;
+using prep.utility.filtering;
 
 namespace prep.collections
 {
@@ -20,7 +21,7 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-      return create_using(x => new List<PropertyType>(values).Contains(accessor(x)));
+      return create_using(new IsEqualToAny<PropertyType>(values));
     }
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
@@ -28,10 +29,10 @@ namespace prep.collections
       return new NegatingMatch<ItemToMatch>(equal_to(value));
     }
 
-    public IMatchAn<ItemToMatch> create_using(Condition<ItemToMatch> condition)
-    {
-      return new AnonymousMatch<ItemToMatch>(condition);
-    }
 
+    public IMatchAn<ItemToMatch> create_using(IMatchAn<PropertyType> criteria)
+    {
+      return new PropertyCriteria<ItemToMatch, PropertyType>(accessor, criteria);
+    }
   }
 }
