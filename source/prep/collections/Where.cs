@@ -13,7 +13,7 @@ namespace prep.collections
     public static ComparableCriteriaFactory<ItemToMatch, PropertyType> has_an<PropertyType>(
       Func<ItemToMatch, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
     {
-      return new ComparableCriteriaFactory<ItemToMatch, PropertyType>(accessor);
+      return new ComparableCriteriaFactory<ItemToMatch, PropertyType>(has_a(accessor), accessor);
     }
   }
 }
