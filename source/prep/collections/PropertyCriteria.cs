@@ -6,7 +6,7 @@ namespace prep.collections
 {
   public class PropertyCriteria<ItemToMatch,PropertyType> : IMatchAn<ItemToMatch>
   {
-    Func<ItemToMatch, PropertyType> accessor;
+    public Func<ItemToMatch, PropertyType> accessor { get; private set; }
     IMatchAn<PropertyType> real_condition;
 
     public PropertyCriteria(Func<ItemToMatch, PropertyType> accessor, IMatchAn<PropertyType> real_condition)

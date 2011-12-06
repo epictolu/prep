@@ -57,11 +57,8 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="collections\ComparableCriteriaFactory.cs" />
-    <Compile Include="collections\CriteriaFactory.cs" />
     <Compile Include="collections\ExtensionMethods.cs" />
     <Compile Include="collections\Genre.cs" />
-    <Compile Include="collections\ICreateMatchers.cs" />
     <Compile Include="collections\FallsInRange.cs" />
     <Compile Include="collections\IsEqualToAny.cs" />
     <Compile Include="collections\IsInGenre.cs" />
@@ -74,6 +71,8 @@
     <Compile Include="utility\filtering\Condition.cs" />
     <Compile Include="utility\filtering\CriteriaExtensions.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
+    <Compile Include="utility\filtering\FilteringExtensionPoint.cs" />
+    <Compile Include="utility\filtering\FilteringExtensions.cs" />
     <Compile Include="utility\filtering\IsGreaterThan.cs" />
     <Compile Include="utility\filtering\IMatchAn.cs" />
     <Compile Include="utility\filtering\NegatingMatch.cs" />
