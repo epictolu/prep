@@ -1,5 +1,4 @@
 using System;
-using prep.utility;
 using prep.utility.filtering;
 
 namespace prep.collections
@@ -16,7 +15,7 @@ namespace prep.collections
     {
       if (other == null) return false;
 
-      return ReferenceEquals(this,other) || this.title == other.title;
+      return ReferenceEquals(this, other) || this.title == other.title;
     }
 
     public override bool Equals(object obj)
@@ -28,6 +27,7 @@ namespace prep.collections
     {
       return new IsInGenre(genre);
     }
+
     public static IMatchAn<Movie> is_published_by(ProductionStudio studio)
     {
       return new IsPublishedBy(studio);

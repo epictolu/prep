@@ -1,24 +1,33 @@
 ﻿using System;
+using prep.collections;
 
 namespace prep.utility.filtering
 {
-    public class FilteringExtensionPoint<ItemToMatch, PropertyType> : INegatedFilteringExtensionPoint<ItemToMatch, PropertyType>
+  public class FilteringExtensionPoint<ItemToMatch, PropertyType> : IProvideAccessToFiltering<ItemToMatch, PropertyType>
+  {
+    Func<ItemToMatch, PropertyType> accessor; 
+
+    public FilteringExtensionPoint(Func<ItemToMatch, PropertyType> accessor)
     {
-        public Func<ItemToMatch, PropertyType> accessor { get; private set; }
-
-        public FilteringExtensionPoint(Func<ItemToMatch, PropertyType> accessor)
-        {
-            this.accessor = accessor;
-        }
-
-        public INegatedFilteringExtensionPoint<ItemToMatch, PropertyType> not
-        {
-            get { return this; }
-        }
+      this.accessor = accessor;
     }
 
-    public interface INegatedFilteringExtensionPoint<ItemToMatch, PropertyType>
+    public IProvideAccessToFiltering<ItemToMatch, PropertyType> not
     {
-        Func<ItemToMatch, PropertyType> accessor { get; }
+      get
+      {
+        return new NegatingFilteringExtensionPoint<ItemToMatch, PropertyType>(this);
+      }
     }
+
+    public IMatchAn<ItemToMatch> create_criteria_from(IMatchAn<PropertyType> criteria)
+    {
+      return new PropertyCriteria<ItemToMatch, PropertyType>(accessor, criteria);
+    }
+  }
+
+  public interface IProvideAccessToFiltering<ItemToMatch, PropertyType>
+  {
+    IMatchAn<ItemToMatch> create_criteria_from(IMatchAn<PropertyType> criteria);
+  }
 }

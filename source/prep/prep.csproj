@@ -68,6 +68,8 @@
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\PropertyCriteria.cs" />
     <Compile Include="collections\ReadOnlySetOf.cs" />
+    <Compile Include="utility\DoublingEnumerable.cs" />
+    <Compile Include="utility\FilteringEnumerable.cs" />
     <Compile Include="utility\filtering\Condition.cs" />
     <Compile Include="utility\filtering\CriteriaExtensions.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
@@ -75,13 +77,17 @@
     <Compile Include="utility\filtering\FilteringExtensions.cs" />
     <Compile Include="utility\filtering\IsGreaterThan.cs" />
     <Compile Include="utility\filtering\IMatchAn.cs" />
+    <Compile Include="utility\filtering\NegatingFilteringExtensionPoint.cs" />
     <Compile Include="utility\filtering\NegatingMatch.cs" />
     <Compile Include="utility\filtering\NeverMatches.cs" />
     <Compile Include="utility\filtering\OrMatch.cs" />
     <Compile Include="utility\filtering\Where.cs" />
+    <Compile Include="utility\LazyEnumerable.cs" />
+    <Compile Include="utility\MappingEnumerable.cs" />
     <Compile Include="utility\ranges\InclusiveRange.cs" />
     <Compile Include="utility\ranges\Range.cs" />
     <Compile Include="utility\ranges\RangeWithNoUpperBound.cs" />
+    <Compile Include="utility\SecuredEnumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -7,8 +7,7 @@ namespace prep.utility
   {
     public static IEnumerable<T> one_at_a_time<T>(this IEnumerable<T> items)
     {
-      foreach (var item in items)
-        yield return item;
+      return new LazyEnumerable<T>(items);
     }
 
     public static IEnumerable<ItemToMatch> all_items_matching<ItemToMatch>(this IEnumerable<ItemToMatch> items,IMatchAn<ItemToMatch> specification)
@@ -17,8 +16,14 @@ namespace prep.utility
     }
     static IEnumerable<ItemToMatch> all_items_matching<ItemToMatch>(this IEnumerable<ItemToMatch> items,Condition<ItemToMatch> condition)
     {
-      foreach (var item in items)
-        if (condition(item)) yield return item;
+      return new FilteringEnumerable<ItemToMatch>(items, condition);
+    }
+
+    public static IEnumerable<T> sort_using<T>(this IEnumerable<T> items, IComparer<T> comparer)
+    {
+      var sorted = new List<T>(items);
+      sorted.Sort(comparer);
+      return sorted;
     }
   }
 }

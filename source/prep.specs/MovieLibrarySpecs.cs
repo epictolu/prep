@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
@@ -211,7 +212,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_not_published_by_pixar = () =>
       {
-          IMatchAn<Movie> criteria = Where<Movie>.has_a(x => x.production_studio)
+          var criteria = Where<Movie>.has_a(x => x.production_studio)
             .not.equal_to(ProductionStudio.Pixar);
 
           var results = sut.all_movies().all_items_matching(criteria);
@@ -221,7 +222,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_after_a_certain_year = () =>
       {
-        var criteria = Where<Movie>.has_a(x => x.date_published).greater_than(2004);
+        var criteria = Where<Movie>.has_a(x => x.date_published).not.greater_than(2004);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
@@ -267,7 +268,9 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_title_descending = () =>
       {
-        var results = sut.sort_all_movies_by_title_descending();
+        var comparer = Order<Movie>.by_descending(x => x.title);
+
+        var results = sut.all_movies().sort_using(comparer);
 
         results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                          pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,

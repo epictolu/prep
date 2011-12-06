@@ -1,10 +1,9 @@
 ﻿using System;
-using prep.utility;
 using prep.utility.filtering;
 
 namespace prep.collections
 {
-  public class PropertyCriteria<ItemToMatch,PropertyType> : IMatchAn<ItemToMatch>
+  public class PropertyCriteria<ItemToMatch, PropertyType> : IMatchAn<ItemToMatch>
   {
     public Func<ItemToMatch, PropertyType> accessor { get; private set; }
     IMatchAn<PropertyType> real_condition;
@@ -18,7 +17,6 @@ namespace prep.collections
     public bool matches(ItemToMatch item)
     {
       return real_condition.matches(accessor(item));
-
     }
   }
 }
