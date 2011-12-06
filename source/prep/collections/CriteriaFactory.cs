@@ -4,7 +4,7 @@ using prep.utility;
 
 namespace prep.collections
 {
-  public class CriteriaFactory<ItemToMatch, PropertyType> 
+  public class CriteriaFactory<ItemToMatch, PropertyType> : ICreateMatchers<ItemToMatch, PropertyType>
   {
     Func<ItemToMatch, PropertyType> accessor;
 

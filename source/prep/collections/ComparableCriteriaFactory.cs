@@ -3,15 +3,32 @@ using prep.utility;
 
 namespace prep.collections
 {
-  public class ComparableCriteriaFactory<ItemToMatch,PropertyType> where PropertyType : IComparable<PropertyType>
+  public class ComparableCriteriaFactory<ItemToMatch, PropertyType> : ICreateMatchers<ItemToMatch, PropertyType>
+    where PropertyType : IComparable<PropertyType>
   {
-      private readonly CriteriaFactory<ItemToMatch, PropertyType> criteria_factory;
-      Func<ItemToMatch, PropertyType> accessor;
+    Func<ItemToMatch, PropertyType> accessor;
+    ICreateMatchers<ItemToMatch, PropertyType> original;
 
-    public ComparableCriteriaFactory(CriteriaFactory<ItemToMatch, PropertyType> criteria_factory, Func<ItemToMatch, PropertyType> accessor)
+    public ComparableCriteriaFactory(Func<ItemToMatch, PropertyType> accessor,
+                                     ICreateMatchers<ItemToMatch, PropertyType> original)
     {
-        this.criteria_factory = criteria_factory;
-        this.accessor = accessor;
+      this.accessor = accessor;
+      this.original = original;
+    }
+
+    public IMatchAn<ItemToMatch> equal_to(PropertyType value)
+    {
+      return original.equal_to(value);
+    }
+
+    public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
+    {
+      return original.equal_to_any(values);
+    }
+
+    public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
+    {
+      return original.not_equal_to(value);
     }
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
@@ -19,26 +36,11 @@ namespace prep.collections
       return new AnonymousMatch<ItemToMatch>(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
     }
 
-    public IMatchAn<ItemToMatch> between(PropertyType start,PropertyType end)
+    public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
       return new AnonymousMatch<ItemToMatch>(x =>
                                                accessor(x).CompareTo(start) >= 0 &&
                                                  accessor(x).CompareTo(end) <= 0);
-    }
-
-    public IMatchAn<ItemToMatch> equal_to(PropertyType value)
-    {
-        return criteria_factory.equal_to_any(value);
-    }
-
-    public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
-    {
-        return criteria_factory.equal_to_any(values);
-    }
-
-    public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
-    {
-        return criteria_factory.not_equal_to(value);
     }
   }
 }
