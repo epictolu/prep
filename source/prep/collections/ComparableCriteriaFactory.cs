@@ -3,13 +3,13 @@ using prep.utility;
 
 namespace prep.collections
 {
-  public class ComparableCriteriaFactory<ItemToMatch, PropertyType> : ICreateMatchers<ItemToMatch, PropertyType>
+  public class ComparableCriteriaFactory<ItemToMatch, PropertyType>
     where PropertyType : IComparable<PropertyType>
   {
     Func<ItemToMatch, PropertyType> accessor;
     ICreateMatchers<ItemToMatch, PropertyType> original;
 
-    public ComparableCriteriaFactory(Func<ItemToMatch, PropertyType> accessor,
+    public ComparableCriteriaFactory<ItemToMatch, PropertyType> accessor,
                                      ICreateMatchers<ItemToMatch, PropertyType> original)
     {
       this.accessor = accessor;
@@ -33,12 +33,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-      return MatchFactory<ItemToMatch>.AnonymousMatchWith(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
+      return original.create_using(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
     }
 
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
-      return MatchFactory<ItemToMatch>.AnonymousMatchWith(x =>
+      return original.create_using(x =>
                                                accessor(x).CompareTo(start) >= 0 &&
                                                  accessor(x).CompareTo(end) <= 0);
     }
