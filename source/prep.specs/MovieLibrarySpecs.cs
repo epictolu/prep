@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using developwithpassion.specifications.extensions;
 using developwithpassion.specifications.rhinomocks;
 using Machine.Specifications;
@@ -9,6 +8,7 @@ using prep.collections;
 using prep.specs.utility;
 using prep.utility;
 using prep.utility.filtering;
+using prep.utility.sorting;
 
 /* The following set of Context/Specification pairs are in place to specify the functionality that you need to complete for the MovieLibrary class.
  * MovieLibrary is an collection of Movie. It exposes the ability to search,sort, and iterate over all of the movies that it contains.
@@ -278,8 +278,10 @@ namespace prep.specs
       };
 
       It should_be_able_to_sort_all_movies_by_title_ascending = () =>
-      {
-        var results = sut.sort_all_movies_by_title_ascending();
+        {
+            var comparer = Order<Movie>.by_ascending(x => x.title);
+
+            var results = sut.all_movies().sort_using(comparer);
 
         results.ShouldContainOnlyInOrder(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom,
                                          pirates_of_the_carribean, shrek, the_ring,
@@ -288,7 +290,9 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_date_published_descending = () =>
       {
-        var results = sut.sort_all_movies_by_date_published_descending();
+          var comparer = Order<Movie>.by_descending(x => x.date_published);
+
+          var results = sut.all_movies().sort_using(comparer);
 
         results.ShouldContainOnlyInOrder(theres_something_about_mary, shrek, the_ring, cars,
                                          pirates_of_the_carribean, a_bugs_life,
@@ -297,7 +301,9 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_date_published_ascending = () =>
       {
-        var results = sut.sort_all_movies_by_date_published_ascending();
+          var comparer = Order<Movie>.by_ascending(x => x.date_published);
+
+          var results = sut.all_movies().sort_using(comparer);
 
         results.ShouldContainOnlyInOrder(indiana_jones_and_the_temple_of_doom, a_bugs_life,
                                          pirates_of_the_carribean, cars, the_ring, shrek,
@@ -306,13 +312,16 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_studio_rating_and_year_published = () =>
       {
+          var comparer = Order<Movie>.by_studio(x => x.production_studio).then_by(x => x.date_published.Year);
+
+
         //Studio Ratings (highest to lowest)
         //MGM
         //Pixar
         //Dreamworks
         //Universal
         //Disney
-        var results = sut.sort_all_movies_by_movie_studio_and_year_published();
+          var results = sut.all_movies().sort_using(comparer);
         /* should return a set of results 
                  * in the collection sorted by the rating of the production studio (not the movie rating) and year published. for this exercise you need to take the studio ratings
                  * into effect, which means that you first have to sort by movie studio (taking the ranking into account) and then by the

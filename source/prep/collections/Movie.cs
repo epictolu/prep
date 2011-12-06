@@ -5,6 +5,11 @@ namespace prep.collections
 {
   public class Movie : IEquatable<Movie>
   {
+      public override string ToString()
+      {
+          return title;
+      }
+
     public string title { get; set; }
     public ProductionStudio production_studio { get; set; }
     public Genre genre { get; set; }

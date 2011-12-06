@@ -88,6 +88,7 @@
     <Compile Include="utility\ranges\Range.cs" />
     <Compile Include="utility\ranges\RangeWithNoUpperBound.cs" />
     <Compile Include="utility\SecuredEnumerable.cs" />
+    <Compile Include="utility\sorting\Order.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
