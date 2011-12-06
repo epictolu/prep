@@ -18,13 +18,13 @@ namespace prep.utility.sorting
 
         public static IComparer<ItemType> by_studio(Func<ItemType, ProductionStudio> accessor)
         {
-            return new PropertyComparer<ItemType, ProductionStudio>(new StudioComparer(), accessor);
+            return new PropertyComparer<ItemType, ProductionStudio>(new MapComparer<ProductionStudio, int>(new AscendingComparer<int>(), new ProductionStudioRatingMapper().GetRating), accessor);
         }
     }
 
-    public class StudioComparer : IComparer<ProductionStudio>
+    public class ProductionStudioRatingMapper
     {
-        public int Compare(ProductionStudio x, ProductionStudio y)
+        public int GetRating(ProductionStudio studio)
         {
             var studio_ratings = new Dictionary<ProductionStudio, int>
                                      {
@@ -35,7 +35,24 @@ namespace prep.utility.sorting
                                          {ProductionStudio.Disney, 5},
                                      };
 
-            return studio_ratings[x].CompareTo(studio_ratings[y]);
+            return studio_ratings[studio];
+        }
+    }
+
+    public class MapComparer<InType, OutType> : IComparer<InType> where OutType : IComparable<OutType>
+    {
+        private readonly IComparer<OutType> comparer;
+        private readonly Converter<InType, OutType> mapper;
+
+        public MapComparer(IComparer<OutType> comparer, Converter<InType, OutType> mapper)
+        {
+            this.comparer = comparer;
+            this.mapper = mapper;
+        }
+
+        public int Compare(InType x, InType y)
+        {
+            return comparer.Compare(mapper(x), mapper(y));
         }
     }
 
@@ -46,8 +63,6 @@ namespace prep.utility.sorting
             return new ThenByComparer<ItemType>(comparer, new PropertyComparer<ItemType, PropertyType>(new AscendingComparer<PropertyType>(), accessor));        
         }
     }
-
-
 
     public class ThenByComparer<T> : IComparer<T>
     {
