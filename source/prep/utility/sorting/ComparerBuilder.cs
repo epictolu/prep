@@ -20,9 +20,12 @@ namespace prep.utility.sorting
     public ComparerBuilder<ItemToSort> then_by<PropertyType>(Func<ItemToSort, PropertyType> accessor)
       where PropertyType : IComparable<PropertyType>
     {
-      return new ComparerBuilder<ItemToSort>(
-        new ChainedComparer<ItemToSort>(comparer,
-                                        Order<ItemToSort>.by(accessor)));
+      return new ComparerBuilder<ItemToSort>(new ChainedComparer<ItemToSort>(comparer, Order<ItemToSort>.by(accessor)));
     }
+
+      public IComparer<ItemToSort> reverse()
+      {
+          return new ComparerBuilder<ItemToSort>(new ReverseComparer<ItemToSort>(comparer));
+      }
   }
 }
