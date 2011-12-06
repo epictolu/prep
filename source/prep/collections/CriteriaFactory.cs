@@ -20,7 +20,7 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-      return new AnonymousMatch<ItemToMatch>(x => new List<PropertyType>(values).Contains(accessor(x)));
+      return MatchFactory<ItemToMatch>.AnonymousMatchWith(x => new List<PropertyType>(values).Contains(accessor(x)));
     }
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)

@@ -33,12 +33,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-      return new AnonymousMatch<ItemToMatch>(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
+      return MatchFactory<ItemToMatch>.AnonymousMatchWith(x => new IsGreaterThan<PropertyType>(value).matches(accessor(x)));
     }
 
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
-      return new AnonymousMatch<ItemToMatch>(x =>
+      return MatchFactory<ItemToMatch>.AnonymousMatchWith(x =>
                                                accessor(x).CompareTo(start) >= 0 &&
                                                  accessor(x).CompareTo(end) <= 0);
     }
