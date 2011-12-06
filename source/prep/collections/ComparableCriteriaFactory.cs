@@ -1,6 +1,6 @@
 ﻿using System;
-using prep.utility;
 using prep.utility.filtering;
+using prep.utility.ranges;
 
 namespace prep.collections
 {
@@ -8,7 +8,7 @@ namespace prep.collections
   {
     ICreateMatchers<ItemToMatch, PropertyType> original;
 
-    public ComparableCriteriaFactory(Func<ItemToMatch, PropertyType> accessor, ICreateMatchers<ItemToMatch, PropertyType> original)
+    public ComparableCriteriaFactory(ICreateMatchers<ItemToMatch, PropertyType> original)
     {
       this.original = original;
     }
@@ -35,12 +35,12 @@ namespace prep.collections
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-      return original.create_using(new FallsInRange<PropertyType>());
+        return original.create_using(new FallsInRange<PropertyType>(Create.a_range<PropertyType>().GreaterThan(value)));
     }
 
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
-      return original.create_using(new FallsInRange<PropertyType>());
+        return original.create_using(new FallsInRange<PropertyType>(Create.a_range<PropertyType>().GreaterThanOrEqual(start).LessThanOrEqual(end)));
     }
   }
 }
