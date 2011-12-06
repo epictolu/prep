@@ -88,7 +88,13 @@
     <Compile Include="utility\ranges\Range.cs" />
     <Compile Include="utility\ranges\RangeWithNoUpperBound.cs" />
     <Compile Include="utility\SecuredEnumerable.cs" />
+    <Compile Include="utility\sorting\ChainedComparer.cs" />
+    <Compile Include="utility\sorting\ComparableComparer.cs" />
+    <Compile Include="utility\sorting\ComparerBuilder.cs" />
+    <Compile Include="utility\sorting\FixedComparer.cs" />
     <Compile Include="utility\sorting\Order.cs" />
+    <Compile Include="utility\sorting\PropertyComparer.cs" />
+    <Compile Include="utility\sorting\ReverseComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
