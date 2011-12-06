@@ -9,8 +9,7 @@ namespace prep.collections
     Func<ItemToMatch, PropertyType> accessor;
     ICreateMatchers<ItemToMatch, PropertyType> original;
 
-    public ComparableCriteriaFactory<ItemToMatch, PropertyType> accessor,
-                                     ICreateMatchers<ItemToMatch, PropertyType> original)
+    public ComparableCriteriaFactory(Func<ItemToMatch, PropertyType> accessor, ICreateMatchers<ItemToMatch, PropertyType> original)
     {
       this.accessor = accessor;
       this.original = original;
@@ -39,8 +38,8 @@ namespace prep.collections
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
       return original.create_using(x =>
-                                               accessor(x).CompareTo(start) >= 0 &&
-                                                 accessor(x).CompareTo(end) <= 0);
+                                     accessor(x).CompareTo(start) >= 0 &&
+                                       accessor(x).CompareTo(end) <= 0);
     }
   }
 }
