@@ -72,7 +72,7 @@
     <Compile Include="utility\Condition.cs" />
     <Compile Include="utility\CriteriaExtensions.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
-    <Compile Include="utility\GreaterThanMatch.cs" />
+    <Compile Include="utility\IsGreaterThan.cs" />
     <Compile Include="utility\IMatchAn.cs" />
     <Compile Include="utility\NegatingMatch.cs" />
     <Compile Include="utility\NeverMatches.cs" />
