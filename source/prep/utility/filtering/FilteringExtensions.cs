@@ -25,6 +25,7 @@ namespace prep.utility.filtering
     {
       return new PropertyCriteria<ItemToMatch, PropertyType>(extension_point.accessor, criteria);
     }
+
     public static IMatchAn<ItemToMatch> greater_than<ItemToMatch,PropertyType>(this FilteringExtensionPoint<ItemToMatch,PropertyType> extension_point,PropertyType value) where PropertyType : IComparable<PropertyType>
     {
         return create_using(extension_point,new FallsInRange<PropertyType>(Create.a_range<PropertyType>().GreaterThan(value)));
@@ -35,4 +36,29 @@ namespace prep.utility.filtering
         return create_using(extension_point,new FallsInRange<PropertyType>(Create.a_range<PropertyType>().GreaterThanOrEqual(start).LessThanOrEqual(end)));
     }
   }
+    public static class OtherFilteringExtensions
+    {
+        public static IMatchAn<ItemToMatch> greater_than<ItemToMatch>(this FilteringExtensionPoint<ItemToMatch, DateTime> extension_point, int value)
+        {
+            return extension_point.create_using(new FallsInRange<DateTime>(Create.a_range<DateTime>().GreaterThan(new DateTime(value, 1, 1))));
+        }
+    }
+
+    public static class NegatedFilteringExtensions
+    {
+        public static IMatchAn<ItemToMatch> equal_to<ItemToMatch, PropertyType>(this INegatedFilteringExtensionPoint<ItemToMatch, PropertyType> extension_point, PropertyType value)
+        {
+            return equal_to_any(extension_point, value);
+        }
+
+        public static IMatchAn<ItemToMatch> equal_to_any<ItemToMatch, PropertyType>(this INegatedFilteringExtensionPoint<ItemToMatch, PropertyType> extension_point, params PropertyType[] values)
+        {
+            return create_using(extension_point, new NegatingMatch<PropertyType>(new IsEqualToAny<PropertyType>(values)));
+        }
+
+        public static IMatchAn<ItemToMatch> create_using<ItemToMatch, PropertyType>(this INegatedFilteringExtensionPoint<ItemToMatch, PropertyType> extension_point, IMatchAn<PropertyType> criteria)
+        {
+            return new PropertyCriteria<ItemToMatch, PropertyType>(extension_point.accessor, criteria);
+        }
+    }
 }
