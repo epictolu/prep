@@ -1,0 +1,5 @@
+C:\course\prep\bin\Debug\build.dll
+C:\course\prep\bin\Debug\build.pdb
+C:\course\prep\obj\Debug\ResolveAssemblyReference.cache
+C:\course\prep\obj\Debug\build.dll
+C:\course\prep\obj\Debug\build.pdb
