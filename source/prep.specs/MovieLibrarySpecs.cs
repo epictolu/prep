@@ -314,8 +314,7 @@ namespace prep.specs
             ProductionStudio.Universal,
             ProductionStudio.Disney,
             ProductionStudio.Paramount)
-            .then_by(x => x.date_published.Year);
-
+            .then_by(x => x.date_published.Year); 
 
         //Studio Ratings (highest to lowest)
         //MGM

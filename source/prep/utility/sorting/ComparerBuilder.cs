@@ -17,13 +17,12 @@ namespace prep.utility.sorting
       return comparer.Compare(x, y);
     }
 
-    public ComparerBuilder<ItemToSort> then_by<PropertyType>(Func<ItemToSort, PropertyType> accessor)
-      where PropertyType : IComparable<PropertyType>
+    public ComparerBuilder<ItemToSort> then_by<PropertyType>(Func<ItemToSort, PropertyType> accessor) where PropertyType : IComparable<PropertyType>
     {
       return new ComparerBuilder<ItemToSort>(new ChainedComparer<ItemToSort>(comparer, Order<ItemToSort>.by(accessor)));
     }
 
-      public IComparer<ItemToSort> reverse()
+      public ComparerBuilder<ItemToSort> reverse()
       {
           return new ComparerBuilder<ItemToSort>(new ReverseComparer<ItemToSort>(comparer));
       }

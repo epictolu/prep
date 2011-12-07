@@ -7,7 +7,7 @@ namespace prep.utility.sorting
     public static ComparerBuilder<ItemType> by_descending<PropertyType>(Func<ItemType, PropertyType> accessor)
       where PropertyType : IComparable<PropertyType>
     {
-      return new ComparerBuilder<ItemType>(new ReverseComparer<ItemType>(by(accessor)));
+        return by(accessor).reverse();
     }
 
     public static ComparerBuilder<ItemType> by<PropertyType>(Func<ItemType, PropertyType> accessor)
